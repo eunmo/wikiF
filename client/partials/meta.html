@@ -1,0 +1,40 @@
+<table class="table table-bordered table-hovered">
+	<tr>
+		<th>
+			Module
+		</th>
+		<th class="text-right">
+			Name
+		</th>
+		<th class="text-center">
+			Active
+		</th>
+		<th class="text-center">
+			Postponed
+		</th>
+		<th>
+			Current Issues
+		</th>
+	</tr>
+	<tbody ng-repeat="module in modules">
+		<tr ng-repeat="handler in module.meta">
+			<td rowspan="{{module.meta.length}}" ng-hide="$index">
+				{{module.name | uppercase}}
+			</td>
+			<td class="text-right">
+				<a href="#/handler/{{handler.name}}">{{handler.name}}</a>
+			</td>
+			<td class="text-center">
+				{{handler.Active}}
+			</td>
+			<td class="text-center">
+				{{handler.Postponed}}
+			</td>
+			<td>
+				<span ng-repeat="issue in handler.current | orderBy: '-'">
+					<a href="http://ims.tmaxsoft.com/tody/ims/issue/issueView.do?issueId={{issue}}">{{issue}}</a><span ng-show="!$last">,</span>
+				</span>
+			</td>
+		</tr>
+	</tbody>
+</table>

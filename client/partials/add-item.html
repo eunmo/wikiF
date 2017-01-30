@@ -1,0 +1,40 @@
+<h1>
+	Adding new item
+</h1>
+<form class="form-horizontal">
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Name</label>
+		<div class="col-sm-9">
+			<input class="form-control" ng-model="item.name" />
+		</div>
+	</div>
+	<div class="form-group" ng-repeat="team in teams">
+		<label class="col-sm-2 control-label">{{team.name}}</label>
+		<div class="col-sm-9">
+			<span ng-repeat="name in team.handlers">
+				<label class="radio-inline">
+					<input type="radio" ng-model="item.handler" value="{{name}}" />{{name}} 
+				</label>
+			</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">State</label>
+		<div class="col-sm-4">
+			<label class="radio-inline">
+				<input type="radio" ng-model="item.state" value="Active" /> Active
+			</label>
+			<label class="radio-inline">
+				<input type="radio" ng-model="item.state" value="Done" /> Done
+			</label>
+			<label class="radio-inline">
+				<input type="radio" ng-model="item.state" value="Postponed" /> Postponed
+			</label>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-8">
+			<button class="btn btn-default" ng-click="add()">Add Item</button>
+		</div>
+	</div>
+</form>

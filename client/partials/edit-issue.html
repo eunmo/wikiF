@@ -1,0 +1,67 @@
+<h1>
+	Editing issue <span ng-show="issue.number">#</span>{{issue.number}}
+</h1>
+<form class="form-horizontal">
+	<div class="form-group">
+		<label class="col-sm-3 control-label">Number</label>
+		<div class="col-sm-8">
+			<input type="number" class="form-control" ng-model="issue.number" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label">Name</label>
+		<div class="col-sm-8">
+			<input class="form-control" ng-model="issue.name" />
+		</div>
+	</div>
+	<div ng-repeat="note in notes">
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Note week</label>
+			<div class="col-sm-8">
+				<input type="date" class="form-control" ng-model="note.date" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Note detail</label>
+			<div class="col-sm-8">
+				<textarea class="form-control" rows="4" ng-model="note.detail"></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" ng-repeat="module in modules">
+		<label class="col-sm-3 control-label">{{module.name | uppercase}} handler</label>
+		<div class="col-sm-8">
+			<span ng-repeat="name in module.handlers">
+				<label class="radio-inline">
+					<input type="radio" ng-model="issue.handler" value="{{name}}" />{{name}} 
+				</label>
+			</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label">State</label>
+		<div class="col-sm-4">
+			<label class="radio-inline">
+				<input type="radio" ng-model="issue.state" value="Active" /> Active
+			</label>
+			<label class="radio-inline">
+				<input type="radio" ng-model="issue.state" value="Done" /> Done
+			</label>
+			<label class="radio-inline">
+				<input type="radio" ng-model="issue.state" value="Postponed" /> Postponed
+			</label>
+		</div>
+		<div class="col-sm-1">
+			<label class="checkbox-inline">
+				<input type="checkbox" ng-model="issue.minor" /> Minor
+			</label>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-3 col-sm-8">
+			<button class="btn btn-primary" ng-click="edit()">Edit</button>
+			<button class="btn btn-default" ng-click="addNote()">Add Note</button>
+			<button class="btn btn-danger pull-right" ng-click="delete()">Delete</button>
+		</div>
+	</div>
+</form>

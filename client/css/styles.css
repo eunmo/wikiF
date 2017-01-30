@@ -1,0 +1,26 @@
+body {
+	font-family: 'Noto Sans', 'Noto Sans CJK KR', 'Noto Sans JP',	나눔고딕, sans-serif;
+}
+
+.radio-inline {
+	margin-left: 10px;
+}
+
+.note-date {
+	min-width: 100px;
+	width: 100px;
+}
+
+.note-author {
+	min-width: 60px;
+	width: 60px;
+}
+
+.note-detail {
+	margin-left: 2.5em;
+	text-indent: -2.5em;
+}
+
+.indent-detail {
+	text-indent: 0em;
+}

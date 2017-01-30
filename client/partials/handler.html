@@ -1,0 +1,86 @@
+<h1>
+	{{name}}:
+	<span ng-show="issueCount">
+		{{issueCount}} issue<span ng-show="issueCount > 1">s</span>
+	</span>
+	<span ng-show="itemCount > 0 && issueCount > 0">and</span>
+	<span ng-show="itemCount">
+		{{itemCount}} item<span ng-show="itemCount > 1">s</span>
+	</span>
+</h1>
+<div ng-repeat="state in states">
+	<h2>{{state.state}}</h2>
+	<table class="table">
+		<tr ng-repeat-start="issue in state.issues | orderBy: ['-number']" ng-class="state.style">
+			<td>
+				<a href="http://ims.tmaxsoft.com/tody/ims/issue/issueView.do?issueId={{issue.number}}">{{issue.number}}</a>
+			</td>
+			<td>
+				{{issue.name}}
+			</td>
+			<td>
+				<span class="label label-info" ng-show="issue.minor">minor</span>
+			</td>
+			<td>
+				<span ng-show="issue.notes">
+					<span class="label label-success" ng-click="expand(issue)" ng-hide="issue.expand">Expand</span>
+					<span class="label label-success" ng-click="shrink(issue)" ng-show="issue.expand">Shrink</span>
+				</span>
+			</td>
+			<td>
+				<span class="label label-primary" ng-click="editIssue(issue)">Edit</span>
+			</td>
+		</tr>
+		<tr ng-if="issue.expand" ng-repeat-end="">
+			<td>
+			</td>
+			<td colspan="5">
+				<table class="table table-condensed">
+					<tr ng-repeat="note in issue.notes">
+						<td class="note-date">
+							{{note.date | date:'yyyy/MM/dd' }}
+						</td>
+						<td>
+							<div ng-repeat="detail in note.details" class="note-detail" ng-class="note.style[$index]">
+								{{detail}}
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr ng-repeat-start="item in state.items | orderBy: ['name']" ng-class="state.style">
+			<td><span class="pull-right"><b>Item</b></td></td>
+			<td colspan="2">
+				{{item.name}}
+			</td>
+			<td>
+				<span ng-show="item.notes">
+					<span class="label label-success" ng-click="expand(item)" ng-hide="item.expand">Expand</span>
+					<span class="label label-success" ng-click="shrink(item)" ng-show="item.expand">Shrink</span>
+				</span>
+			</td>
+			<td>
+				<span class="label label-primary" ng-click="editItem(item)">Edit</span>
+			</td>
+		</tr>
+		<tr ng-if="item.expand" ng-repeat-end="">
+			<td>
+			</td>
+			<td colspan="5">
+				<table class="table table-condensed">
+					<tr ng-repeat="note in item.notes">
+						<td class="note-date">
+							{{note.date | date:'yyyy/MM/dd' }}
+						</td>
+						<td>
+							<div ng-repeat="detail in note.details" class="note-detail" ng-class="note.style[$index]">
+								{{detail}}
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>

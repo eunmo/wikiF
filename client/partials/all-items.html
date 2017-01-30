@@ -1,0 +1,44 @@
+<div ng-repeat="team in teams">
+	<h1>{{team.name}}</h1>
+	<div ng-repeat="handler in team.handlers" class="panel panel-default">
+		<div class="panel-heading">
+			<h2 class="panel-title">{{handler.name}}</h2>
+		</div>
+		<table ng-show="handler.items.length" class="table">
+			<tr ng-repeat-start="item in handler.items | orderBy: ['name']">
+				<td>
+					<b>{{item.name}}</b>
+				</td>
+				<td>
+					<span ng-show="item.notes" class="pull-right">
+						<span class="label label-success" ng-click="expand(item)" ng-hide="item.expand">Expand</span>
+						<span class="label label-success" ng-click="shrink(item)" ng-show="item.expand">Shrink</span>
+					</span>
+				</td>
+			</tr>
+			<tr ng-hide="item.expand">
+				<td colspan="2">
+					<div ng-repeat="detail in item.thisWeek.details" class="note-detail" ng-class="note.style[$index]">
+						{{detail}}
+					</div>
+				</td>
+			</tr>
+			<tr ng-if="item.expand" ng-repeat-end="">
+				<td colspan="2">
+					<table class="table table-condensed">
+						<tr ng-repeat="note in item.notes">
+							<td class="note-date">
+								{{note.date | date:'yyyy/MM/dd' }}
+							</td>
+							<td>
+								<div ng-repeat="detail in note.details" class="note-detail" ng-class="note.style[$index]">
+									{{detail}}
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

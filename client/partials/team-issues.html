@@ -1,0 +1,55 @@
+<h1>{{team}}</h1>
+<div ng-repeat="handler in handlers" class="panel panel-default">
+	<div class="panel-heading">
+		<h2 class="panel-title">{{handler.name}}</h2>
+	</div>
+	<div ng-repeat="state in handler.states">
+		<div ng-show="state.issues.length" class="panel-body">
+			<h3>{{state.state}}</h3>
+			<table class="table">
+				<tr ng-repeat-start="issue in state.issues | orderBy: ['number']">
+					<td>
+						<a href="http://ims.tmaxsoft.com/tody/ims/issue/issueView.do?issueId={{issue.number}}">{{issue.number}}</a>
+					</td>
+					<td>
+						{{issue.name}}
+					</td>
+					<td>
+						<span class="label label-info" ng-show="issue.minor">minor</span>
+					</td>
+					<td>
+						<span ng-show="issue.notes" class="pull-right">
+							<span class="label label-success" ng-click="expand(issue)" ng-hide="issue.expand">Expand</span>
+							<span class="label label-success" ng-click="shrink(issue)" ng-show="issue.expand">Shrink</span>
+						</span>
+					</td>
+				</tr>
+				<tr ng-hide="issue.expand || issue.thisWeek === undefined">
+					<td></td>
+					<td colspan="3">
+						<div ng-repeat="detail in issue.thisWeek.details" class="note-detail" ng-class="note.style[$index]">
+							{{detail}}
+						</div>
+					</td>
+				</tr>
+				<tr ng-if="issue.expand" ng-repeat-end="">
+					<td></td>
+					<td colspan="3">
+						<table class="table table-condensed">
+							<tr ng-repeat="note in issue.notes">
+								<td class="note-date">
+									{{note.date | date:'yyyy/MM/dd' }}
+								</td>
+								<td>
+									<div ng-repeat="detail in note.details" class="note-detail" ng-class="note.style[$index]">
+										{{detail}}
+									</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,26 @@
+<p>__NOTOC__</p>
+<p>== 사이트 이슈 보고 ==</p>
+<div ng-repeat="team in teams">
+	<h2>== {{team.name}}팀 ==</h2>
+	<div ng-repeat="handler in team.handlers" ng-show="handler.issueCount">
+		<h3>=== {{handler.name}} ===</h3>
+		<div ng-repeat="state in handler.states" ng-show="state.issues.length">
+			<h4>-- {{state.state}} --</h4>
+			<div ng-repeat="issue in state.issues | orderBy: 'number'">
+				<div>* IMS-{{issue.number}} {{issue.name}}</div>
+				<div ng-repeat="detail in issue.thisWeek.details">** {{detail}}</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div ng-repeat="team in teams">
+	<h2>== {{team.name}}팀 ==</h2>
+	<div ng-repeat="handler in team.handlers" ng-show="handler.items.length">
+		<h3>=== {{handler.name}} ===</h3>
+		<div>* {{quarter}}분기 계획 업무 진행 상황</div>
+		<div ng-repeat="item in handler.items">
+			<div>** {{item.name}}</div>
+			<div ng-repeat="detail in item.thisWeek.details">**{{detail}}</div>
+		</div>
+	</div>
+</div>
